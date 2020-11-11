@@ -37,6 +37,9 @@ from discord.ext import commands
 import dbouncer
 
 class MyBouncer(dbouncer.DefaultBouncer):
+    async def whitelisted(self, guild):
+        return guild.id == 360268483197665282
+    
     async def before_leave(self, guild):
         await guild.owner.send("This guild does not have enough users, or has too many bots!")
     
@@ -52,6 +55,5 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 bot.add_cog(MyBouncer(bot,
     min_member_count=10,
     max_bot_ratio=0.5,
-    whitelisted_guilds=[1234567891426718647281467218647128]
 ))
 ```
