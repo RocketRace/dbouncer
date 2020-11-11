@@ -181,20 +181,17 @@ class DefaultBouncer(commands.Cog):
         '''
         if self.whitelisted(guild):
             return False
-        return any([
-            # guild members
-            self.min_members is not None and 
-                guild.member_count < self.min_members,
-            self.max_members is not None and 
-                guild.member_count > self.max_members,
-            self.max_bot_ratio is not None and 
-                len([None for m in guild.members if m.bot]) / guild.member_count > self.max_bot_ratio,
-            # guild itself
-            self.min_guild_age is not None and 
-                datetime.utcnow() - guild.created_at > self.min_guild_age,
-            # Custom checks
-            await self.extra_criteria(guild),
-        ])
+        if self.min_guild_age is not None and datetime.utcnow() - guild.created_at > self.min_guild_age:
+            return True
+        if self.min_members is not None and guild.member_count < self.min_members:
+            return True
+        if self.max_members is not None and guild.member_count > self.max_members:
+            return True
+        if self.max_bot_ratio is not None: 
+            bots = len([None for m in guild.members if m.bot])
+            if bots / guild.member_count > self.max_bot_ratio:
+                return True
+        return await self.extra_criteria(guild)
 
     async def whitelisted(self, guild: discord.Guild) -> bool:
         '''A method to determine whether a guild should not be left,
