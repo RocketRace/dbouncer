@@ -23,8 +23,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 '''
 
-import asyncio
-from typing import *
+from typing import Optional, Union
 import discord
 from discord.ext import commands, tasks
 from collections import namedtuple
