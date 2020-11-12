@@ -29,10 +29,10 @@ from discord.ext import commands, tasks
 from collections import namedtuple
 from datetime import datetime, timedelta
 
-__version__ = "0.1.0a" # for setup.py
+__version__ = "0.1.1a" # for setup.py
 
 _VersionInfo = namedtuple("_VersionInfo", "major minor micro releaselevel serial")
-version_info = _VersionInfo(major=0, minor=1, micro=0, releaselevel="alpha", serial=0)
+version_info = _VersionInfo(major=0, minor=1, micro=1, releaselevel="alpha", serial=0)
 
 __all__ = ("DefaultBouncer",)
 
@@ -57,7 +57,7 @@ class DefaultBouncer(commands.Cog):
 
     max_guilds: :class:`int`
         The maximum number of guilds the bot is allowed to join. By default, this is 
-        set to 95 guilds.
+        set to 98 guilds.
         
         Whenever a new guild is joined above this limit, that guild is immediately left,
         and :meth:`self.on_guild_limit_reach` is called.
@@ -123,7 +123,7 @@ class DefaultBouncer(commands.Cog):
         self,
         bot: commands.Bot,
         *,
-        max_guilds: int=58,
+        max_guilds: int=98,
         min_members: Optional[int]=None,
         max_members: Optional[int]=None,
         max_bot_ratio: Optional[float]=None,
